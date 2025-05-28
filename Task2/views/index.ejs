@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            margin-top: 5px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+    <script>
+        // Inline JavaScript for client-side validation
+        function validateForm(event) {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const errorElement = document.getElementById('error-message');
+
+            if (!name || !email || !age || !message) {
+                errorElement.textContent = "All fields are required!";
+                event.preventDefault(); // Prevent form submission
+                return false;
+            }
+
+            if (isNaN(age) || age <= 0) {
+                errorElement.textContent = "Please enter a valid age.";
+                event.preventDefault();
+                return false;
+            }
+
+            errorElement.textContent = "";
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Enhanced Form</h1>
+    <form action="/submit" method="POST" onsubmit="return validateForm(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age">
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5"></textarea>
+
+        <p id="error-message" class="error"></p>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
